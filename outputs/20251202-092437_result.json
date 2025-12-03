@@ -1,8 +1,0 @@
-{
-  "answer": {
-    "thought": "To find the latest news about AI advancements, I need to open a new URL.",
-    "action": "GOTO",
-    "parameter": "https://news.google.com",
-    "completed": true
-  }
-}

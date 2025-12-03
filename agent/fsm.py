@@ -65,8 +65,15 @@ class FSM:
             if action_type == "error":
                 return State.ERROR
 
+        # if current in {State.GOTO, State.CLICK, State.TYPE, State.SCROLL, State.PRESS, State.DOWNLOAD}:
+        #     return State.WAIT_DOM
         if current in {State.GOTO, State.CLICK, State.TYPE, State.SCROLL, State.PRESS, State.DOWNLOAD}:
-            return State.WAIT_DOM
+            # Actions that finish browser ops
+            if action_type in {
+                "nav_done", "click_done", "type_done",
+                "scroll_done", "press_done"
+            }:
+                return State.WAIT_DOM
 
         if current == State.WAIT_DOM:
             # WAIT_DOM -> SCREENSHOT + DOM_SUMMARY -> ANALYSIS

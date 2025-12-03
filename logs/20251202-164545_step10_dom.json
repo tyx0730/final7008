@@ -1,0 +1,163 @@
+{
+  "url": "https://arxiv.org/search/?q=Qwen",
+  "title": "Search | arXiv e-print repository",
+  "inputs": [
+    {
+      "index": 0,
+      "type": "text",
+      "name": "query",
+      "placeholder": "Search...",
+      "aria_label": "Search term or terms"
+    },
+    {
+      "index": 1,
+      "type": "hidden",
+      "name": "source",
+      "placeholder": "",
+      "aria_label": ""
+    },
+    {
+      "index": 2,
+      "type": "text",
+      "name": "query",
+      "placeholder": "Search term...",
+      "aria_label": ""
+    },
+    {
+      "index": 3,
+      "type": "radio",
+      "name": "abstracts",
+      "placeholder": "",
+      "aria_label": ""
+    },
+    {
+      "index": 4,
+      "type": "radio",
+      "name": "abstracts",
+      "placeholder": "",
+      "aria_label": ""
+    },
+    {
+      "index": 5,
+      "type": "hidden",
+      "name": "order",
+      "placeholder": "",
+      "aria_label": ""
+    },
+    {
+      "index": 6,
+      "type": "hidden",
+      "name": "size",
+      "placeholder": "",
+      "aria_label": ""
+    }
+  ],
+  "buttons": [
+    {
+      "index": 0,
+      "text": "Search"
+    },
+    {
+      "index": 1,
+      "text": "Search"
+    }
+  ],
+  "links": [
+    {
+      "index": 0,
+      "text": "Skip to main content",
+      "href": "#main-container"
+    },
+    {
+      "index": 1,
+      "text": "member institutions",
+      "href": "https://info.arxiv.org/about/ourmembers.html"
+    },
+    {
+      "index": 2,
+      "text": "Donate",
+      "href": "https://info.arxiv.org/about/donate.html"
+    },
+    {
+      "index": 3,
+      "text": "Help",
+      "href": "https://info.arxiv.org/help"
+    },
+    {
+      "index": 4,
+      "text": "Advanced Search",
+      "href": "https://arxiv.org/search/advanced"
+    },
+    {
+      "index": 5,
+      "text": "Login",
+      "href": "https://arxiv.org/login"
+    },
+    {
+      "index": 6,
+      "text": "Search v0.5.6 released 2020-02-24",
+      "href": "https://github.com/arXiv/arxiv-search/releases"
+    },
+    {
+      "index": 7,
+      "text": "Advanced Search",
+      "href": "/search/advanced"
+    },
+    {
+      "index": 8,
+      "text": "Search v0.5.6 released 2020-02-24",
+      "href": "https://github.com/arXiv/arxiv-search/releases"
+    },
+    {
+      "index": 9,
+      "text": "About",
+      "href": "https://info.arxiv.org/about"
+    },
+    {
+      "index": 10,
+      "text": "Help",
+      "href": "https://info.arxiv.org/help"
+    },
+    {
+      "index": 11,
+      "text": "Contact",
+      "href": "https://info.arxiv.org/help/contact.html"
+    },
+    {
+      "index": 12,
+      "text": "Subscribe",
+      "href": "https://info.arxiv.org/help/subscribe"
+    },
+    {
+      "index": 13,
+      "text": "Copyright",
+      "href": "https://info.arxiv.org/help/license/index.html"
+    },
+    {
+      "index": 14,
+      "text": "Privacy Policy",
+      "href": "https://info.arxiv.org/help/policies/privacy_policy.html"
+    },
+    {
+      "index": 15,
+      "text": "Web Accessibility Assistance",
+      "href": "https://info.arxiv.org/help/web_accessibility.html"
+    },
+    {
+      "index": 16,
+      "text": "arXiv Operational Status",
+      "href": "https://status.arxiv.org"
+    },
+    {
+      "index": 17,
+      "text": "email",
+      "href": "https://subscribe.sorryapp.com/24846f03/email/new"
+    },
+    {
+      "index": 18,
+      "text": "slack",
+      "href": "https://subscribe.sorryapp.com/24846f03/slack/new"
+    }
+  ],
+  "html_snippet": "<!DOCTYPE html><html lang=\"en\"><head>\n    <meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<!-- new favicon config and versions by realfavicongenerator.net -->\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"https://static.arxiv.org/static/base/1.0.0a5/images/icons/apple-touch-icon.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"https://static.arxiv.org/static/base/1.0.0a5/images/icons/favicon-32x32.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"https://static.arxiv.org/static/base/1.0.0a5/images/icons/favicon-16x16.png\">\n<link rel=\"manifest\" href=\"https://static.arxiv.org/static/base/1.0.0a5/images/icons/site.webmanifest\">\n<link rel=\"mask-icon\" href=\"https://static.arxiv.org/static/base/1.0.0a5/images/icons/safari-pinned-tab.svg\" color=\"#b31b1b\">\n<link rel=\"shortcut icon\" href=\"https://static.arxiv.org/static/base/1.0.0a5/images/icons/favicon.ico\">\n<meta name=\"msapplication-TileColor\" content=\"#b31b1b\">\n<meta name=\"msapplication-config\" content=\"images/icons/browserconfig.xml\">\n<meta name=\"theme-color\" content=\"#b31b1b\">\n<!-- end favicon config -->\n<title>Search | arXiv e-print repository</title>\n<script defer=\"\" src=\"https://static.arxiv.org/static/base/1.0.0a5/fontawesome-free-5.11.2-web/js/all.js\"></script>\n<link rel=\"stylesheet\" href=\"https://static.arxiv.org/static/base/1.0.0a5/css/arxivstyle.css\">\n<script type=\"text/x-mathjax-config;executed=true\">\n  MathJax.Hub.Config({\n    messageStyle: \"none\",\n    extensions: [\"tex2jax.js\"],\n    jax: [\"input/TeX\", \"output/HTML-CSS\"],\n    tex2jax: {\n      inlineMath: [ ['$','$'], [\"\\\\(\",\"\\\\)\"] ],\n      displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"] ],\n      processEscapes: true,\n      ignoreClass: '.*',\n      processClass: 'mathjax.*'\n    },\n    TeX: {\n        extensions: [\"AMSmath.js\", \"AMSsymbols.js\", \"noErrors.js\"],\n        noErrors: {\n          inlineDelimiters: [\"$\",\"$\"],\n          multiLine: false,\n          style: {\n            \"font-size\": \"normal\",\n "
+}

@@ -27,27 +27,46 @@ class Planner:
     def __init__(self, model: Any):
         # model: models/ 下的任意 *VLLM 实例，需实现 analyze()
         self.model = model
+        self.last_urls = []   # ⭐新增：跟踪最近数次 URL
 
     async def plan_next(self, inp: PlannerInput) -> AgentAction:
         """PLAN / ANALYSIS 阶段：调用大模型返回动作 JSON。"""
 
-        # 调用统一的 analyze 接口（见 models/base_model.py / generic_model.py）
+        # === 模型生成动作 ===
         model_result = self.model.analyze(
             screenshot_path=inp.screenshot_path,
             dom_summary=str(inp.dom_summary or ""),
             user_goal=inp.task,
             current_url=inp.current_url or "",
         )
+
         action_str = str(model_result.get("action", "")).upper().strip()
         param = str(model_result.get("parameter", "")).strip()
-        completed = bool(model_result.get("completed", False))
 
         valid_actions = {"GOTO", "CLICK", "TYPE", "SCROLL", "DONE"}
 
-        # 第一轮禁止 DONE：必须先 GOTO 打开网站
+        # === ⭐ 1. URL 自动稳定检测逻辑 ===
+        curr_url = inp.current_url or ""
+        self.last_urls.append(curr_url)
+
+        # 只保留最近 3 条
+        if len(self.last_urls) > 3:
+            self.last_urls.pop(0)
+
+        # 如果最近3次 URL 都一样 → 模型毫无进展 → 自动 DONE
+        if len(set(self.last_urls)) == 1 and len(inp.history) > 2:
+            return AgentAction(
+                type="final_answer",
+                params={
+                    "answer": model_result, 
+                    "auto_done": True,
+                    "reason": "URL did not change for 3 steps"
+                },
+            )
+
+        # === 2. 第一轮禁止 DONE ===
         is_first_step = len(inp.history) == 0
         if is_first_step and action_str == "DONE":
-            # 如果 parameter 是 URL，就强制改为 GOTO 该 URL
             if param.startswith("http://") or param.startswith("https://"):
                 action_str = "GOTO"
             else:
@@ -56,26 +75,34 @@ class Planner:
                     params={"answer": model_result, "error": "first_step_done_without_url"},
                 )
 
+        # === 3. 非法动作 ===
         if action_str not in valid_actions:
-            # 模型输出了未知动作，直接结束，避免 FSM 收到垃圾动作
-            return AgentAction(type="final_answer", params={"answer": model_result, "error": "invalid_action"})
+            return AgentAction(
+                type="final_answer",
+                params={"answer": model_result, "error": "invalid_action"},
+            )
 
-        if completed or action_str == "DONE":
-            return AgentAction(type="final_answer", params={"answer": model_result})
+        # === 4. 模型主动 DONE ===
+        if action_str == "DONE":
+            return AgentAction(
+                type="final_answer",
+                params={"answer": model_result}
+            )
 
+        # === 5. 执行动作 ===
         if action_str == "GOTO":
-            # 简单 URL 校验
             if not (param.startswith("http://") or param.startswith("https://")):
-                return AgentAction(type="final_answer", params={"answer": model_result, "error": "invalid_url"})
+                return AgentAction(type="final_answer",
+                                params={"answer": model_result, "error": "invalid_url"})
             return AgentAction(type="goto", params={"url": param})
 
         if action_str == "CLICK":
             if not param:
-                return AgentAction(type="final_answer", params={"answer": model_result, "error": "empty_selector"})
+                return AgentAction(type="final_answer",
+                                params={"answer": model_result, "error": "empty_selector"})
             return AgentAction(type="click", params={"selector": param})
 
         if action_str == "TYPE":
-            # parameter 必须是 selector:::text，缺省时使用 input 作为 selector
             if ":::" in param:
                 sel, txt = param.split(":::", 1)
             else:
@@ -86,5 +113,6 @@ class Planner:
             direction = param.lower() if param.lower() in {"up", "down"} else "down"
             return AgentAction(type="scroll", params={"direction": direction})
 
-        # 理论上走不到这里
-        return AgentAction(type="final_answer", params={"answer": model_result, "error": "unreachable"})
+        return AgentAction(type="final_answer",
+                        params={"answer": model_result, "error": "unreachable"})
+

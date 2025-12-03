@@ -128,6 +128,7 @@ class AgentController:
                 continue
 
             if ctx.state == State.WAIT_DOM:
+                # print("DEBUG: wait_dom_stable returned:", page_state)
                 try:
                     page_state = await self.browser.wait_dom_stable()
                     ctx.history.append({"step": step_idx, "event": "wait_dom", "url": page_state.url})

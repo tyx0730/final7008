@@ -31,7 +31,7 @@ if __name__ == "__main__":
     #                     default="Search for the latest news about AI advancements and summarize the key points.")
     parser.add_argument("--task", type=str,
                         default="Go to https://www.baidu.com/ and find the latest Python version.")
-    parser.add_argument("--max_steps", type=int, default=8)
+    parser.add_argument("--max_steps", type=int, default=30)
     args = parser.parse_args()
 
     VLLM = MODEL_MAP[args.model]

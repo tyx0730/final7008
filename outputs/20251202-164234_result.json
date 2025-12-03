@@ -1,0 +1,10 @@
+{
+  "answer": {
+    "thought": "Open arXiv.org and search for any recent paper about machine learning",
+    "action": "GOTO",
+    "parameter": "https://arxiv.org/",
+    "completed": false
+  },
+  "auto_done": true,
+  "reason": "URL did not change for 3 steps"
+}

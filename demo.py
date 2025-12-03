@@ -901,11 +901,13 @@ def process_vision_info(messages):
 
 if __name__ == "__main__":
     agent = WebAgent()
-    task = """Go to https://www.python.org
+    # task = """Go to https://www.python.org
 
-    Step 1: Click on "Community" link 
-    Step 2: Click on "Python FAQs" link
+    # Step 1: Click on "Community" link 
+    # Step 2: Click on "Python FAQs" link
 
+    # """
+    task = """Find the most recent technical report (PDF) about Qwen, then interpret Figure 1 by describing its purpose and key findings.
     """
     agent.run_task(task, max_steps=5)
 

@@ -30,9 +30,17 @@ class BrowserTool:
 
     async def goto(self, url: str) -> PageState:
         page = await self._ensure_page()
-        await page.goto(url, wait_until="domcontentloaded", timeout=10000)
+        # await page.goto(url, wait_until="domcontentloaded", timeout=10000)
+        await page.goto(url, wait_until="networkidle", timeout=10000)
+
         self._state.url = page.url
         self._state.dom_snapshot = await page.content()
+        # ⭐ 等待 arXiv 搜索结果渲染（如果是搜索页）
+        try:
+            await page.wait_for_selector("li.arxiv-result", timeout=5000)
+        except Exception:
+            pass
+
         return self._state
 
     async def click(self, selector: str) -> PageState:
@@ -40,6 +48,12 @@ class BrowserTool:
         await page.click(selector, timeout=5000)
         self._state.url = page.url
         self._state.dom_snapshot = await page.content()
+        # ⭐ 等待 arXiv 搜索结果渲染（如果是搜索页）
+        try:
+            await page.wait_for_selector("li.arxiv-result", timeout=5000)
+        except Exception:
+            pass
+
         return self._state
 
     async def type(self, selector: str, text: str, clear: bool = True) -> PageState:
@@ -58,6 +72,12 @@ class BrowserTool:
         await page.mouse.wheel(0, dy)
         self._state.url = page.url
         self._state.dom_snapshot = await page.content()
+                # ⭐ 等待 arXiv 搜索结果渲染（如果是搜索页）
+        try:
+            await page.wait_for_selector("li.arxiv-result", timeout=5000)
+        except Exception:
+            pass
+
         return self._state
 
     async def press(self, key: str) -> PageState:
@@ -65,6 +85,12 @@ class BrowserTool:
         await page.keyboard.press(key)
         self._state.url = page.url
         self._state.dom_snapshot = await page.content()
+                # ⭐ 等待 arXiv 搜索结果渲染（如果是搜索页）
+        try:
+            await page.wait_for_selector("li.arxiv-result", timeout=5000)
+        except Exception:
+            pass
+
         return self._state
 
     async def wait_dom_stable(self, timeout: float = 2000) -> PageState:
